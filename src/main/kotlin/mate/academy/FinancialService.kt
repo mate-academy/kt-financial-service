@@ -7,8 +7,10 @@ class FinancialService {
         amount: CurrencyAmount,
         currencyCode: CurrencyCode,
         transactionId: TransactionId
-    ) : String {
-        // TODO: implement
+    ): String {
+        return "Transferred ${amount.amount} ${currencyCode.code} " +
+                "from ${source.accountNumber} to ${destination.accountNumber}." +
+                " Transaction ID: ${transactionId.id}"
     }
 
     fun convertCurrency(
@@ -16,7 +18,9 @@ class FinancialService {
         fromCurrency: CurrencyCode,
         toCurrency: CurrencyCode
     ): CurrencyAmount {
-        // TODO: implement
+        val convertedAmount: Double =
+            amount.amount * getExchangeRate(fromCurrency, toCurrency)
+        return CurrencyAmount(convertedAmount)
     }
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
