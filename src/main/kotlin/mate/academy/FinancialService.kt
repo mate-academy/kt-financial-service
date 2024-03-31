@@ -1,5 +1,9 @@
 package mate.academy
 
+const val CURR_CODE = 3
+const val NUMBER_LENGTH = 10
+const val EUR = 0.93
+const val GBP = 0.82
 @JvmInline
 value class CurrencyAmount(val amount: Double) {
     init {
@@ -10,14 +14,15 @@ value class CurrencyAmount(val amount: Double) {
 @JvmInline
 value class CurrencyCode(val code: String) {
     init {
-        require(code.length == 3 && code.all { it.isUpperCase() }) { "Currency code must be a 3-letter uppercase code." }
+        require(code.length == CURR_CODE && code.all { it.isUpperCase() })
+        { "Currency code must be a 3-letter uppercase code." }
     }
 }
 
 @JvmInline
 value class AccountNumber(val number: String) {
     init {
-        require(number.length == 10 && number.all { it.isDigit() })
+        require(number.length == NUMBER_LENGTH && number.all { it.isDigit() })
         { "Account number must be a 10-digit string containing only numbers." }
     }
 }
@@ -54,8 +59,8 @@ class FinancialService {
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         // Placeholder exchange rate - in a real application, you'd fetch this from a financial API
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> EUR
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> GBP
             else -> 1.0
         }
     }
