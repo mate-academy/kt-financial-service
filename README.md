@@ -1,29 +1,27 @@
 # Financial Service
 
+In this task, you will enhance a `FinancialService` class by implementing two essential functionalities: **transferring funds between accounts** and **converting currency amounts**. 
+The base code lays out the structure and provides some placeholder logic. The objective is to execute the logic within the `transferFunds` and `convertCurrency` methods and establish the required value classes.
 
-In this task, you will enhance a `FinancialService` class by implementing two core functionalities: transferring funds between accounts and converting currency amounts. 
-The base code provides the structure and some placeholder logic. 
-Your goal is to implement the logic within the `transferFunds` and `convertCurrency` methods, and create required value classes.
-
-### Task Requirements
+## Task Requirements
 
 1. **Transfer Funds Between Accounts**:
-    - Implement the `transferFunds` method to simulate transferring money from a source account to a destination account. This method accepts account numbers for both the source and destination, the amount to be transferred, the currency code of the amount, and a transaction ID.
-    - Your implementation should return a confirmation message summarizing the transaction, including the amount transferred, the currency code, and the transaction ID.
-    - For this task, you do not need to interact with a real database; simply simulate the transaction logic and return the confirmation message.
+    - Implement the `transferFunds` method to simulate money transfer from a source to a destination account. This method requires **account numbers for both the source and destination, the amount to be transferred, the currency code of the amount,** and **a transaction ID**.
+    - Upon completion, return a confirmation message summarizing the transaction, including details such as the amount transferred, currency code, and transaction ID.
+    - In this task, interaction with an actual database isn't necessary; simulate the transaction logic and return the confirmation message.
 
 2. **Convert Currency**:
-    - Implement the `convertCurrency` method to simulate converting a given amount from one currency to another. This method takes an amount, a source currency code, and a destination currency code as inputs.
-    - Use the provided `getExchangeRate` method to determine the exchange rate between the two currencies. Then, calculate the converted amount and return it as a `CurrencyAmount`.
-    - The `getExchangeRate` method includes placeholder logic with predefined rates for USD to EUR and USD to GBP conversions. Assume a 1:1 rate for any other currency conversions not explicitly defined.
+    - Implement the `convertCurrency` method to simulate converting a given amount from one currency to another. This method takes **an amount, a source currency code,** and **a destination currency code** as inputs.
+    Use the `getExchangeRate` method provided to determine the exchange rate between the two currencies. Then, calculate the converted amount and return it as a `CurrencyAmount`.
+    - Placeholder logic exists within the `getExchangeRate` method, offering predefined rates for **USD to EUR** and **USD to GBP** conversions. Assume a 1:1 rate for any other currency conversions not explicitly defined.
 
-3. **Create the following inline value classes with validation**:
-    - `CurrencyAmount`: Represents a monetary amount. Should ensure the amount is non-negative.
-    - `CurrencyCode`: Represents a currency code. Should be a 3-letter uppercase code (e.g., USD, EUR).
-    - `AccountNumber`: Represents an account number. Should be a 10-digit string.
-    - `TransactionId`: Represents a transaction ID. Should ensure the ID is not empty.
+3. **Creation of Inline Value Classes with Validation**:
+    - `CurrencyAmount`: Represents a monetary amount. Ensure the amount is non-negative.
+    - `CurrencyCode`: Represents a currency code. The code should be a 3-letter uppercase format (e.g., USD, EUR).
+    - `AccountNumber`: Represents an account number. The number should be a 10-digit string.
+    - `TransactionId`: Represents a transaction ID. Ensure the ID is not empty.
 
-### Example Usage
+## Example
 
 ```kotlin
 val financialService = FinancialService()
