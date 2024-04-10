@@ -1,5 +1,30 @@
 package mate.academy
 
+class CurrencyAmount(val amount: Double) {
+    init {
+        require(amount >= 0) { "Amount must be non-negative" }
+    }
+}
+
+class CurrencyCode(val code: String) {
+    init {
+        require(code.matches("[A-Z]{3}".toRegex())) { "Invalid currency code format" }
+    }
+}
+
+class AccountNumber(val number: String) {
+    init {
+        require(number.matches("\\d{10}".toRegex())) { "Invalid account number format" }
+    }
+}
+
+class TransactionId(val id: String) {
+    init {
+        require(id.isNotEmpty()) { "Transaction ID cannot be empty" }
+    }
+}
+
+
 class FinancialService {
     fun transferFunds(
         source: AccountNumber,
@@ -7,8 +32,14 @@ class FinancialService {
         amount: CurrencyAmount,
         currencyCode: CurrencyCode,
         transactionId: TransactionId
-    ) : String {
-        // TODO: implement
+    ): String {
+        require(amount.amount >= 0) { "Transfer amount must be non-negative" }
+        require(source.number.matches("\\d{10}".toRegex())) { "Invalid source account number format" }
+        require(destination.number.matches("\\d{10}".toRegex())) { "Invalid destination account number format" }
+        require(currencyCode.code.matches("[A-Z]{3}".toRegex())) { "Invalid currency code format" }
+        require(transactionId.id.isNotEmpty()) { "Transaction ID cannot be empty" }
+
+        return "Transferred ${amount.amount} ${currencyCode.code} from ${source.number} to ${destination.number}. Transaction ID: ${transactionId.id}"
     }
 
     fun convertCurrency(
@@ -16,11 +47,17 @@ class FinancialService {
         fromCurrency: CurrencyCode,
         toCurrency: CurrencyCode
     ): CurrencyAmount {
-        // TODO: implement
+        require(amount.amount >= 0) { "Amount to convert must be non-negative" }
+        require(fromCurrency.code.matches("[A-Z]{3}".toRegex())) { "Invalid source currency code format" }
+        require(toCurrency.code.matches("[A-Z]{3}".toRegex())) { "Invalid destination currency code format" }
+
+        val exchangeRate = getExchangeRate(fromCurrency, toCurrency)
+        val convertedAmount = amount.amount * exchangeRate
+
+        return CurrencyAmount(convertedAmount)
     }
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
-        // Placeholder exchange rate - in a real application, you'd fetch this from a financial API
         return when {
             fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
             fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
