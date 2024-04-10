@@ -1,5 +1,8 @@
 package mate.academy
 
+const val USD_TO_EURO_RATE = 0.93
+const val USD_TO_GBP_RATE = 0.82
+
 @JvmInline
 value class AccountNumber(val accountNumber: String) {
     init {
