@@ -26,6 +26,12 @@ class TransactionId(val id: String) {
 
 
 class FinancialService {
+    companion object {
+        private const val USD_TO_EUR_RATE = 0.93
+        private const val USD_TO_GBP_RATE = 0.82
+        private const val DEFAULT_EXCHANGE_RATE = 1.0
+    }
+
     fun transferFunds(
         source: AccountNumber,
         destination: AccountNumber,
@@ -39,7 +45,8 @@ class FinancialService {
         require(currencyCode.code.matches("[A-Z]{3}".toRegex())) { "Invalid currency code format" }
         require(transactionId.id.isNotEmpty()) { "Transaction ID cannot be empty" }
 
-        return "Transferred ${amount.amount} ${currencyCode.code} from ${source.number} to ${destination.number}. Transaction ID: ${transactionId.id}"
+        return ("Transferred ${amount.amount} ${currencyCode.code} from ${source.number} "
+                + "to ${destination.number}. Transaction ID: ${transactionId.id}").trimMargin()
     }
 
     fun convertCurrency(
@@ -59,9 +66,9 @@ class FinancialService {
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
-            else -> 1.0
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> USD_TO_EUR_RATE
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> USD_TO_GBP_RATE
+            else -> DEFAULT_EXCHANGE_RATE
         }
     }
 }
