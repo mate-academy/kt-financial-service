@@ -8,16 +8,17 @@ class FinancialService {
         currencyCode: CurrencyCode,
         transactionId: TransactionId
     ) : String {
-        // TODO: implement
+        //transfer logic
+        return "Transferred ${amount.amount} ${currencyCode.code}" +
+                " from ${source.number} to ${destination.number}." +
+                " Transaction ID: ${transactionId.id}"
     }
 
     fun convertCurrency(
         amount: CurrencyAmount,
         fromCurrency: CurrencyCode,
         toCurrency: CurrencyCode
-    ): CurrencyAmount {
-        // TODO: implement
-    }
+    ): CurrencyAmount = CurrencyAmount(amount.amount * getExchangeRate(fromCurrency, toCurrency))
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         // Placeholder exchange rate - in a real application, you'd fetch this from a financial API
