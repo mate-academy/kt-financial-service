@@ -30,8 +30,8 @@ value class TransactionId(val id: String) {
 
 class FinancialService {
 
-    private val USD_TO_EUR_RATE = 0.93
-    private val USD_TO_GBP_RATE = 0.82
+    private val usdToEurRate = 0.93
+    private val usdToGbpRate = 0.82
 
     fun transferFunds(
         source: AccountNumber,
@@ -56,8 +56,8 @@ class FinancialService {
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> USD_TO_EUR_RATE
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> USD_TO_GBP_RATE
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> usdToEurRate
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> usdToGbpRate
             else -> 1.0
         }
     }
