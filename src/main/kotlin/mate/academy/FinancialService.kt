@@ -32,6 +32,7 @@ class FinancialService {
 
     private val usdToEurRate = 0.93
     private val usdToGbpRate = 0.82
+    private val defaultExchangeRate = 1.0  // Теперь 1.0 определено как константа
 
     fun transferFunds(
         source: AccountNumber,
@@ -58,7 +59,7 @@ class FinancialService {
         return when {
             fromCurrency.code == "USD" && toCurrency.code == "EUR" -> usdToEurRate
             fromCurrency.code == "USD" && toCurrency.code == "GBP" -> usdToGbpRate
-            else -> 1.0
+            else -> defaultExchangeRate  // Теперь используем именованную константу
         }
     }
 }
