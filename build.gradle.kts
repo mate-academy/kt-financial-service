@@ -9,10 +9,13 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://maven.pkg.github.com/gradle/toolchains") }
 }
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("test"))
+    testImplementation("io.kotest:kotest-assertions-core:5.6.2")
 }
 
 tasks.test {
@@ -24,7 +27,7 @@ kotlin {
 }
 
 detekt {
-    buildUponDefaultConfig = true // preconfigure defaults
-    allRules = false // activate all available (even unstable) rules.
-    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+    buildUponDefaultConfig = true
+    allRules = false
+    baseline = file("$projectDir/config/baseline.xml")
 }
