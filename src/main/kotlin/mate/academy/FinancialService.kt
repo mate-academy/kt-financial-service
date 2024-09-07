@@ -53,6 +53,7 @@ value class AccountNumber(val number: String) {
     }
 }
 
+
 @JvmInline
 value class TransactionId(val id: String) {
     init {
