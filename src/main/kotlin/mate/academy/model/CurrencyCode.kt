@@ -5,8 +5,7 @@ import java.lang.IllegalArgumentException
 @JvmInline
 value class CurrencyCode(val code: String) {
     init {
-        if (code.uppercase() != code || code.length < 3) {
-            throw IllegalArgumentException("Code is invalid!")
-        }
+        require(code.length >= 3) { "Currency code must be at least 3 characters long." }
+        require(code.all { it.isUpperCase() }) { "Currency code must be in uppercase." }
     }
 }

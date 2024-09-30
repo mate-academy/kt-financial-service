@@ -6,12 +6,20 @@ import mate.academy.model.CurrencyCode
 import mate.academy.model.TransactionId
 import mate.academy.model.User
 
+private const val DEFAULT_ALICE_AMOUNT = 1000.0
+
+private const val DEFAULT_BOGDAN_AMOUNT = 2000.0
+
+private const val DEFAULT_USD_TO_EURO_RATE = 0.93
+
+private const val DEFAULT_USD_TO_GBR_RATE = 0.82
+
 class FinancialService {
     val listOfUsers: MutableList<User> = mutableListOf()
 
     init {
-        val alice: User = User("Alice", 1000.0, AccountNumber("1234567890"))
-        val bogdan: User = User("Bogdan", 2000.0, AccountNumber("3456764567"))
+        val alice: User = User("Alice", DEFAULT_ALICE_AMOUNT, AccountNumber("1234567890"))
+        val bogdan: User = User("Bogdan", DEFAULT_BOGDAN_AMOUNT, AccountNumber("3456764567"))
         listOfUsers.add(alice)
         listOfUsers.add(bogdan)
     }
@@ -25,10 +33,10 @@ class FinancialService {
     ) : String {
         val userSource: User? = getUserByBankAccount(listOfUsers, source)
         val userTarget: User? = getUserByBankAccount(listOfUsers, destination)
-        userSource?.let { source ->
+        userSource?.let { userSourceAccount ->
             userTarget?.let { target ->
                 target.amount = target.amount.plus(amount.amount)
-                source.amount = source.amount.minus(amount.amount)
+                userSourceAccount.amount = userSourceAccount.amount.minus(amount.amount)
             }
         }
         return "Transferred ${amount.amount} ${currencyCode.code} from ${source.accountNumber} " +
@@ -46,8 +54,8 @@ class FinancialService {
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> DEFAULT_USD_TO_EURO_RATE
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> DEFAULT_USD_TO_GBR_RATE
             else -> 1.0
         }
     }

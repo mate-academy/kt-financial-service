@@ -5,8 +5,6 @@ import java.lang.IllegalArgumentException
 @JvmInline
 value class CurrencyAmount(val amount: Double) {
     init {
-        if (amount < 0) {
-            throw IllegalArgumentException("Monetary amount can't be negative!")
-        }
+        require(amount >= 0) { "Amount must be more or equals to 0." }
     }
 }

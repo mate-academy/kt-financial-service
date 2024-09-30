@@ -1,10 +1,11 @@
 package mate.academy.model
 
+private const val DEFAULT_LENGTH = 10
+
 @JvmInline
 value class AccountNumber(val accountNumber: String) {
     init {
-        if (!accountNumber.all { it.isDigit() } || accountNumber.length != 10) {
-            throw IllegalArgumentException("Account number is invalid!")
-        }
+        require(accountNumber.all { it.isDigit() })
+        require(accountNumber.length == DEFAULT_LENGTH)
     }
 }
