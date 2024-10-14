@@ -31,7 +31,6 @@ class FinancialService {
     }
 }
 
-
 @JvmInline
 value class CurrencyAmount(val amount: Double) {
     init {
