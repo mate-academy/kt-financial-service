@@ -1,12 +1,12 @@
 package mate.academy
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.function.Executable
 
 class FinancialServiceTest {
-
     private val financialService = FinancialService()
 
     @Test
@@ -107,7 +107,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(93.0, result.amount)
+        assertEquals(93.0, result.value)
     }
 
     @Test
@@ -151,7 +151,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(93.0, result.amount)
+        assertEquals(93.0, result.value)
     }
 
     @Test
@@ -165,7 +165,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(82.0, result.amount)
+        assertEquals(82.0, result.value)
     }
 
     @Test
@@ -179,7 +179,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(100.0, result.amount) // Expecting a 1:1 conversion rate for unsupported pairs
+        assertEquals(100.0, result.value) // Expecting a 1:1 conversion rate for unsupported pairs
     }
 
     // Tests for CurrencyAmount
