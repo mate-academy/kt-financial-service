@@ -1,5 +1,9 @@
 package mate.academy
 
+import mate.academy.FinancialService.AccountNumber
+import mate.academy.FinancialService.CurrencyAmount
+import mate.academy.FinancialService.CurrencyCode
+import mate.academy.FinancialService.TransactionId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
