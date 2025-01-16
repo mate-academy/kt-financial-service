@@ -1,11 +1,12 @@
-package mate.academy
+package mate.academy.models
 
 import org.jetbrains.annotations.NotNull
 
-data class TransactionId(@NotNull var transactionId: String) {
+@JvmInline
+value class TransactionId(@NotNull val transactionId: String) {
     init {
-        require(transactionId == "") {
-            throw IllegalArgumentException()
+        require(transactionId != "") {
+            throw IllegalArgumentException("Illegal argument")
         }
     }
 }
