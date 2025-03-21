@@ -1,5 +1,9 @@
 package mate.academy
 
+const val FROM_USD_TO_EUR_RATE = 0.93
+const val FROM_USD_TO_GBP_RATE = 0.82
+const val DEFAULT_RATE = 1.0
+
 class FinancialService {
     fun transferFunds(
         source: AccountNumber,
@@ -24,9 +28,9 @@ class FinancialService {
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         // Placeholder exchange rate - in a real application, you'd fetch this from a financial API
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
-            else -> 1.0
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> FROM_USD_TO_EUR_RATE
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> FROM_USD_TO_GBP_RATE
+            else -> DEFAULT_RATE
         }
     }
 }
