@@ -1,22 +1,27 @@
 package mate.academy
 
+import mate.academy.data.AccountNumber
+import mate.academy.data.CurrencyAmount
+import mate.academy.data.CurrencyCode
+import mate.academy.data.TransactionId
+
 class FinancialService {
     fun transferFunds(
         source: AccountNumber,
         destination: AccountNumber,
         amount: CurrencyAmount,
         currencyCode: CurrencyCode,
-        transactionId: TransactionId
-    ) : String {
-        // TODO: implement
+        transactionId: TransactionId,
+    ): String {
+        return "Transferred ${amount.amount} ${currencyCode.code} from ${source.accauntNumber} to ${destination.accauntNumber}. Transaction ID: ${transactionId.id}"
     }
 
     fun convertCurrency(
         amount: CurrencyAmount,
         fromCurrency: CurrencyCode,
-        toCurrency: CurrencyCode
+        toCurrency: CurrencyCode,
     ): CurrencyAmount {
-        // TODO: implement
+        return CurrencyAmount(amount.amount * getExchangeRate(fromCurrency, toCurrency))
     }
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
