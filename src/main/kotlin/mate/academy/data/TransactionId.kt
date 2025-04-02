@@ -1,7 +1,5 @@
 package mate.academy.data
 
-import java.util.*
-
 @JvmInline
 value class TransactionId(val id: String) {
     init {
