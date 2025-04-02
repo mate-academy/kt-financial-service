@@ -4,7 +4,9 @@ import mate.academy.data.AccountNumber
 import mate.academy.data.CurrencyAmount
 import mate.academy.data.CurrencyCode
 import mate.academy.data.TransactionId
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.function.Executable
