@@ -1,6 +1,12 @@
 package mate.academy
 
+import AccountNumber
+import CurrencyAmount
+import CurrencyCode
+import FinancialService
+import TransactionId
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
