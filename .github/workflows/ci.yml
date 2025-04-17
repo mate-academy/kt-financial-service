@@ -1,32 +1,41 @@
 name: Java CI
 
-on: [push, pull_request_target]
+on:
+  push:
+  pull_request_target:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'temurin' # 'temurin' is the new name for AdoptOpenJDK
+          cache: gradle # <--- this line is OK, but will be ignored for forks
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew clean build
 
-      - uses: mate-academy/auto-approve-action@v2
+      - name: Auto approve PR
         if: ${{ github.event.pull_request && success() }}
+        uses: mate-academy/auto-approve-action@v2
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: mate-academy/auto-reject-action@v2
+      - name: Auto reject PR
         if: ${{ github.event.pull_request && failure() }}
+        uses: mate-academy/auto-reject-action@v2
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
