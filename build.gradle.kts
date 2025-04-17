@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "1.8.0"
     application
-    id("io.gitlab.arturbosch.detekt") version "1.23.3"
+    id("io.gitlab.arturbosch.detekt") version "1.23.5"
 }
 
 group = "mate.academy"
