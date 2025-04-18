@@ -16,6 +16,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+          cache: 'none'
       - name: Build with Gradle
         run: ./gradlew build
       - uses: mate-academy/auto-approve-action@v2
