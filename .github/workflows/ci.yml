@@ -1,29 +1,38 @@
 name: Java CI
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{github.event.pull_request.head.ref}}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17 (no cache)
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adopt'
-          cache: gradle
+          distribution: 'temurin'  # adopt -> temurin
+          cache: 'none'            # отключаем кэш полностью
+          server-id: ''            # не создаёт settings.xml
+          settings-path: ''        # полностью отключаем генерацию файла
+
       - name: Build with Gradle
         run: ./gradlew build
-      - uses: mate-academy/auto-approve-action@v2
+
+      # Автоапрув и автоотклонение — если нужно
+      - name: Auto-approve
         if: ${{ github.event.pull_request && success() }}
+        uses: mate-academy/auto-approve-action@v2
         with:
-          github-token: ${{ github.token }}
-      - uses: mate-academy/auto-reject-action@v2
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-reject
         if: ${{ github.event.pull_request && failure() }}
+        uses: mate-academy/auto-reject-action@v2
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
