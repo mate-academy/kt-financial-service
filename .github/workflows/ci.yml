@@ -1,6 +1,6 @@
 name: Java CI
 
-on: [push, pull_request_target]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -16,9 +16,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-          cache: 'none'
-          server-id: ''
-          settings-path: ''
+          cache: gradle
       - name: Build with Gradle
         run: ./gradlew build
       - uses: mate-academy/auto-approve-action@v2
