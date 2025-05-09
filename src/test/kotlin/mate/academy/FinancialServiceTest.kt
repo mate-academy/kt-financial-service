@@ -1,6 +1,12 @@
 package mate.academy
 
-import org.junit.jupiter.api.Assertions.*
+import mate.academy.value.AccountNumber
+import mate.academy.value.CurrencyAmount
+import mate.academy.value.CurrencyCode
+import mate.academy.value.TransactionId
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.function.Executable
