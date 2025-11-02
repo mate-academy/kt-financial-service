@@ -1,6 +1,8 @@
 package mate.academy
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.function.Executable
@@ -12,11 +14,11 @@ class FinancialServiceTest {
     @Test
     fun transferFunds_ValidInput_SuccessfulTransfer() {
         // given
-        val source = AccountNumber("1234567890")
-        val destination = AccountNumber("0987654321")
-        val amount = CurrencyAmount(100.0)
-        val currencyCode = CurrencyCode("USD")
-        val transactionId = TransactionId("txn123")
+        val source = FinancialService.AccountNumber("1234567890")
+        val destination = FinancialService.AccountNumber("0987654321")
+        val amount = FinancialService.CurrencyAmount(100.0)
+        val currencyCode = FinancialService.CurrencyCode("USD")
+        val transactionId = FinancialService.TransactionId("txn123")
 
         // when
         val result = financialService.transferFunds(source, destination, amount, currencyCode, transactionId)
@@ -31,7 +33,7 @@ class FinancialServiceTest {
         val invalidSource = "12345" // Not matching the required format
 
         // when & then
-        val executable = Executable { AccountNumber(invalidSource) }
+        val executable = Executable { FinancialService.AccountNumber(invalidSource) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
@@ -41,7 +43,7 @@ class FinancialServiceTest {
         val invalidDestination = "12345" // Not matching the required format
 
         // when & then
-        val executable = Executable { AccountNumber(invalidDestination) }
+        val executable = Executable { FinancialService.AccountNumber(invalidDestination) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
@@ -51,7 +53,7 @@ class FinancialServiceTest {
         val negativeAmount = -100.0
 
         // when & then
-        val executable = Executable { CurrencyAmount(negativeAmount) }
+        val executable = Executable { FinancialService.CurrencyAmount(negativeAmount) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
@@ -61,7 +63,7 @@ class FinancialServiceTest {
         val invalidCurrencyCode = "US" // Not matching the required format
 
         // when & then
-        val executable = Executable { CurrencyCode(invalidCurrencyCode) }
+        val executable = Executable { FinancialService.CurrencyCode(invalidCurrencyCode) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
@@ -71,17 +73,17 @@ class FinancialServiceTest {
         val emptyTransactionId = "" // Not matching the required format
 
         // when & then
-        val executable = Executable { TransactionId(emptyTransactionId) }
+        val executable = Executable { FinancialService.TransactionId(emptyTransactionId) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
     fun transferFunds_SameSourceAndDestination_ExpectedBehavior() {
         // given
-        val sourceAndDestination = AccountNumber("1234567890")
-        val amount = CurrencyAmount(100.0)
-        val currencyCode = CurrencyCode("USD")
-        val transactionId = TransactionId("txn123")
+        val sourceAndDestination = FinancialService.AccountNumber("1234567890")
+        val amount = FinancialService.CurrencyAmount(100.0)
+        val currencyCode = FinancialService.CurrencyCode("USD")
+        val transactionId = FinancialService.TransactionId("txn123")
 
         // when
         val result = financialService.transferFunds(
@@ -99,9 +101,9 @@ class FinancialServiceTest {
     @Test
     fun convertCurrency_ValidInput_SuccessfulConversion() {
         // given
-        val amount = CurrencyAmount(100.0)
-        val fromCurrency = CurrencyCode("USD")
-        val toCurrency = CurrencyCode("EUR")
+        val amount = FinancialService.CurrencyAmount(100.0)
+        val fromCurrency = FinancialService.CurrencyCode("USD")
+        val toCurrency = FinancialService.CurrencyCode("EUR")
 
         // when
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
@@ -116,7 +118,7 @@ class FinancialServiceTest {
         val invalidFromCurrency = "US" // Not matching the required format
 
         // when & then
-        val executable = Executable { CurrencyCode(invalidFromCurrency) }
+        val executable = Executable { FinancialService.CurrencyCode(invalidFromCurrency) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
@@ -126,7 +128,7 @@ class FinancialServiceTest {
         val invalidToCurrency = "EU" // Not matching the required format
 
         // when & then
-        val executable = Executable { CurrencyCode(invalidToCurrency) }
+        val executable = Executable { FinancialService.CurrencyCode(invalidToCurrency) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
@@ -136,16 +138,16 @@ class FinancialServiceTest {
         val negativeAmount = -100.0
 
         // when & then
-        val executable = Executable { CurrencyAmount(negativeAmount) }
+        val executable = Executable { FinancialService.CurrencyAmount(negativeAmount) }
         assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
     fun convertCurrency_ExpectedConversionRate_USDtoEUR() {
         // given
-        val amount = CurrencyAmount(100.0)
-        val fromCurrency = CurrencyCode("USD")
-        val toCurrency = CurrencyCode("EUR")
+        val amount = FinancialService.CurrencyAmount(100.0)
+        val fromCurrency = FinancialService.CurrencyCode("USD")
+        val toCurrency = FinancialService.CurrencyCode("EUR")
 
         // when
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
@@ -157,9 +159,9 @@ class FinancialServiceTest {
     @Test
     fun convertCurrency_ExpectedConversionRate_USDtoGBP() {
         // given
-        val amount = CurrencyAmount(100.0)
-        val fromCurrency = CurrencyCode("USD")
-        val toCurrency = CurrencyCode("GBP")
+        val amount = FinancialService.CurrencyAmount(100.0)
+        val fromCurrency = FinancialService.CurrencyCode("USD")
+        val toCurrency = FinancialService.CurrencyCode("GBP")
 
         // when
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
@@ -171,9 +173,9 @@ class FinancialServiceTest {
     @Test
     fun convertCurrency_ExpectedConversionRate_UnsupportedPair() {
         // given
-        val amount = CurrencyAmount(100.0)
-        val fromCurrency = CurrencyCode("EUR")
-        val toCurrency = CurrencyCode("JPY")
+        val amount = FinancialService.CurrencyAmount(100.0)
+        val fromCurrency = FinancialService.CurrencyCode("EUR")
+        val toCurrency = FinancialService.CurrencyCode("JPY")
 
         // when
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
@@ -185,53 +187,53 @@ class FinancialServiceTest {
     // Tests for CurrencyAmount
     @Test
     fun currencyAmount_ValidAmount_Success() {
-        assertDoesNotThrow { CurrencyAmount(100.0) }
+        assertDoesNotThrow { FinancialService.CurrencyAmount(100.0) }
     }
 
     @Test
     fun currencyAmount_NegativeAmount_ThrowsException() {
-        assertThrows<IllegalArgumentException> { CurrencyAmount(-100.0) }
+        assertThrows<IllegalArgumentException> { FinancialService.CurrencyAmount(-100.0) }
     }
 
     @Test
     fun currencyAmount_ZeroAmount_Success() {
-        assertDoesNotThrow { CurrencyAmount(0.0) }
+        assertDoesNotThrow { FinancialService.CurrencyAmount(0.0) }
     }
 
     // Tests for CurrencyCode
     @Test
     fun currencyCode_ValidCode_Success() {
-        assertDoesNotThrow { CurrencyCode("USD") }
+        assertDoesNotThrow { FinancialService.CurrencyCode("USD") }
     }
 
     @Test
     fun currencyCode_InvalidCode_ThrowsException() {
-        assertThrows<IllegalArgumentException> { CurrencyCode("usd") } // not uppercase
-        assertThrows<IllegalArgumentException> { CurrencyCode("EU") }  // not 3 letters
-        assertThrows<IllegalArgumentException> { CurrencyCode("EURO") } // more than 3 letters
+        assertThrows<IllegalArgumentException> { FinancialService.CurrencyCode("usd") } // not uppercase
+        assertThrows<IllegalArgumentException> { FinancialService.CurrencyCode("EU") }  // not 3 letters
+        assertThrows<IllegalArgumentException> { FinancialService.CurrencyCode("EURO") } // more than 3 letters
     }
 
     // Tests for AccountNumber
     @Test
     fun accountNumber_ValidNumber_Success() {
-        assertDoesNotThrow { AccountNumber("1234567890") }
+        assertDoesNotThrow { FinancialService.AccountNumber("1234567890") }
     }
 
     @Test
     fun accountNumber_InvalidNumberFormat_ThrowsException() {
-        assertThrows<IllegalArgumentException> { AccountNumber("123456789") }  // less than 10 digits
-        assertThrows<IllegalArgumentException> { AccountNumber("12345678901") } // more than 10 digits
-        assertThrows<IllegalArgumentException> { AccountNumber("12345abcde") }  // contains letters
+        assertThrows<IllegalArgumentException> { FinancialService.AccountNumber("123456789") }  // less than 10 digits
+        assertThrows<IllegalArgumentException> { FinancialService.AccountNumber("12345678901") } // more than 10 digits
+        assertThrows<IllegalArgumentException> { FinancialService.AccountNumber("12345abcde") }  // contains letters
     }
 
     // Tests for TransactionId
     @Test
     fun transactionId_ValidId_Success() {
-        assertDoesNotThrow { TransactionId("txn123") }
+        assertDoesNotThrow { FinancialService.TransactionId("txn123") }
     }
 
     @Test
     fun transactionId_EmptyId_ThrowsException() {
-        assertThrows<IllegalArgumentException> { TransactionId("") }
+        assertThrows<IllegalArgumentException> { FinancialService.TransactionId("") }
     }
 }
