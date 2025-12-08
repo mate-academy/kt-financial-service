@@ -1,6 +1,7 @@
 package mate.academy
 
-import java.util.Currency
+const val EXCHANGE_RATE_EUR = 0.93
+const val EXCHANGE_RATE_USD = 0.82
 
 @JvmInline
 value class CurrencyAmount(val amount: Double) {
@@ -56,8 +57,8 @@ class FinancialService {
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> EXCHANGE_RATE_EUR
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> EXCHANGE_RATE_USD
             else -> 1.0
         }
     }
