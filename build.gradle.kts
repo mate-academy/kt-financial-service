@@ -28,3 +28,7 @@ detekt {
     allRules = false // activate all available (even unstable) rules.
     baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
 }
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    setSource(files("src/main/kotlin"))
+}
