@@ -30,6 +30,12 @@ value class TransactionId(val id: String) {
 
 class FinancialService {
 
+    companion object {
+        private const val USD_TO_EUR_RATE = 0.93
+        private const val USD_TO_GBP_RATE = 0.82
+        private const val DEFAULT_RATE = 1.0
+    }
+
     fun transferFunds(
         source: AccountNumber,
         destination: AccountNumber,
@@ -51,12 +57,14 @@ class FinancialService {
         return CurrencyAmount(converted)
     }
 
-    private fun getExchangeRate(fromCurrency: CurrencyCode,
-                                toCurrency: CurrencyCode): Double {
+    private fun getExchangeRate(
+        fromCurrency: CurrencyCode,
+        toCurrency: CurrencyCode
+    ): Double {
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
-            else -> 1.0
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> USD_TO_EUR_RATE
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> USD_TO_GBP_RATE
+            else -> DEFAULT_RATE
         }
     }
 }
