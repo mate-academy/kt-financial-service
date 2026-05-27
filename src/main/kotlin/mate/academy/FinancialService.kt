@@ -1,5 +1,9 @@
 package mate.academy
 
+const val DEFAULT_VALUE = 1.0
+const val USD_EUR = 0.93
+const val USD_GBR = 0.82
+
 class FinancialService {
     fun transferFunds(
         source: AccountNumber,
@@ -7,8 +11,9 @@ class FinancialService {
         amount: CurrencyAmount,
         currencyCode: CurrencyCode,
         transactionId: TransactionId
-    ) : String {
-        // TODO: implement
+    ): String {
+        return "Transferred ${amount.amount} ${currencyCode.code} from ${source.code} " +
+                "to ${destination.code}. Transaction ID: ${transactionId.id}"
     }
 
     fun convertCurrency(
@@ -16,15 +21,16 @@ class FinancialService {
         fromCurrency: CurrencyCode,
         toCurrency: CurrencyCode
     ): CurrencyAmount {
-        // TODO: implement
+        val exchangeRate = getExchangeRate(fromCurrency, toCurrency)
+        return CurrencyAmount((amount.amount * exchangeRate).toDouble())
     }
 
     private fun getExchangeRate(fromCurrency: CurrencyCode, toCurrency: CurrencyCode): Double {
         // Placeholder exchange rate - in a real application, you'd fetch this from a financial API
         return when {
-            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> 0.93
-            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> 0.82
-            else -> 1.0
+            fromCurrency.code == "USD" && toCurrency.code == "EUR" -> USD_EUR
+            fromCurrency.code == "USD" && toCurrency.code == "GBP" -> USD_GBR
+            else -> DEFAULT_VALUE
         }
     }
 }
