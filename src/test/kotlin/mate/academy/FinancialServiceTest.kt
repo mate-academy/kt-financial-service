@@ -1,6 +1,6 @@
 package mate.academy
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.function.Executable
@@ -22,7 +22,7 @@ class FinancialServiceTest {
         val result = financialService.transferFunds(source, destination, amount, currencyCode, transactionId)
 
         // then
-        assertEquals("Transferred 100.0 USD from 1234567890 to 0987654321. Transaction ID: txn123", result)
+        Assertions.assertEquals("Transferred 100.0 USD from 1234567890 to 0987654321. Transaction ID: txn123", result)
     }
 
     @Test
@@ -32,7 +32,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { AccountNumber(invalidSource) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -42,7 +42,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { AccountNumber(invalidDestination) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -52,7 +52,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { CurrencyAmount(negativeAmount) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -62,7 +62,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { CurrencyCode(invalidCurrencyCode) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -72,7 +72,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { TransactionId(emptyTransactionId) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -93,7 +93,7 @@ class FinancialServiceTest {
         )
 
         // then
-        assertEquals("Transferred 100.0 USD from 1234567890 to 1234567890. Transaction ID: txn123", result)
+        Assertions.assertEquals("Transferred 100.0 USD from 1234567890 to 1234567890. Transaction ID: txn123", result)
     }
 
     @Test
@@ -107,7 +107,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(93.0, result.amount)
+        Assertions.assertEquals(93.0, result.amount)
     }
 
     @Test
@@ -117,7 +117,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { CurrencyCode(invalidFromCurrency) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -127,7 +127,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { CurrencyCode(invalidToCurrency) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -137,7 +137,7 @@ class FinancialServiceTest {
 
         // when & then
         val executable = Executable { CurrencyAmount(negativeAmount) }
-        assertThrows(IllegalArgumentException::class.java, executable)
+        Assertions.assertThrows(IllegalArgumentException::class.java, executable)
     }
 
     @Test
@@ -151,7 +151,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(93.0, result.amount)
+        Assertions.assertEquals(93.0, result.amount)
     }
 
     @Test
@@ -165,7 +165,7 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(82.0, result.amount)
+        Assertions.assertEquals(82.0, result.amount)
     }
 
     @Test
@@ -179,13 +179,13 @@ class FinancialServiceTest {
         val result = financialService.convertCurrency(amount, fromCurrency, toCurrency)
 
         // then
-        assertEquals(100.0, result.amount) // Expecting a 1:1 conversion rate for unsupported pairs
+        Assertions.assertEquals(100.0, result.amount) // Expecting a 1:1 conversion rate for unsupported pairs
     }
 
     // Tests for CurrencyAmount
     @Test
     fun currencyAmount_ValidAmount_Success() {
-        assertDoesNotThrow { CurrencyAmount(100.0) }
+        Assertions.assertDoesNotThrow { CurrencyAmount(100.0) }
     }
 
     @Test
@@ -195,13 +195,13 @@ class FinancialServiceTest {
 
     @Test
     fun currencyAmount_ZeroAmount_Success() {
-        assertDoesNotThrow { CurrencyAmount(0.0) }
+        Assertions.assertDoesNotThrow { CurrencyAmount(0.0) }
     }
 
     // Tests for CurrencyCode
     @Test
     fun currencyCode_ValidCode_Success() {
-        assertDoesNotThrow { CurrencyCode("USD") }
+        Assertions.assertDoesNotThrow { CurrencyCode("USD") }
     }
 
     @Test
@@ -214,7 +214,7 @@ class FinancialServiceTest {
     // Tests for AccountNumber
     @Test
     fun accountNumber_ValidNumber_Success() {
-        assertDoesNotThrow { AccountNumber("1234567890") }
+        Assertions.assertDoesNotThrow { AccountNumber("1234567890") }
     }
 
     @Test
@@ -227,7 +227,7 @@ class FinancialServiceTest {
     // Tests for TransactionId
     @Test
     fun transactionId_ValidId_Success() {
-        assertDoesNotThrow { TransactionId("txn123") }
+        Assertions.assertDoesNotThrow { TransactionId("txn123") }
     }
 
     @Test
