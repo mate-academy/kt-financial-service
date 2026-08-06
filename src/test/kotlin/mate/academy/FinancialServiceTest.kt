@@ -18,10 +18,8 @@ class FinancialServiceTest {
         val currencyCode = CurrencyCode("USD")
         val transactionId = TransactionId("txn123")
 
-        // when
         val result = financialService.transferFunds(source, destination, amount, currencyCode, transactionId)
 
-        // then
         assertEquals("Transferred 100.0 USD from 1234567890 to 0987654321. Transaction ID: txn123", result)
     }
 
